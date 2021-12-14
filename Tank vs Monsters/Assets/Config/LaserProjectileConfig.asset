@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: LaserProjectileConfig
   _movementSpeed: 10
-  _viewPath: 
+  _viewPath: LaserProjectileView
   _type: 1
   _damageEntity:
     _damage: 100

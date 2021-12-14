@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Common;
 using Level.Config;
 using Level.Model;
@@ -19,6 +20,9 @@ namespace Level.View
     {
         public List<TElementView> Elements { get; private set; }
 
+        public event Action<string, Collision2D> OnElementCollisionEnter 
+            = delegate(string id, Collision2D collision) { };
+        
         public override void Initialize(TModel data)
         {
             Elements = new List<TElementView>(data.Config.Size);
@@ -28,11 +32,12 @@ namespace Level.View
             for (var i = 0; i < data.Elements.Count; i++)
             {
                 Elements[i].Initialize(data.Elements[i]);
-                Elements[i].OnCollisionEnter += OnElementCollisionEnterHandler;
+                Elements[i].OnCollisionEnter += delegate(string id, Collision2D collision)
+                {
+                    OnElementCollisionEnter(id, collision);
+                };
             }
         }
-
-        protected abstract void OnElementCollisionEnterHandler(string id, Collision2D collision);
 
         private void OnPrefabLoadedHandler(Object obj, TModel objectPoolModel)
         {

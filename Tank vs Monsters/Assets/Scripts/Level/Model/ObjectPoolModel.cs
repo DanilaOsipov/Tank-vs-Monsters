@@ -19,8 +19,7 @@ namespace Level.Model
             for (int i = 0; i < config.Size; i++)
             {
                 var elementModel = CreateElement(config.ElementConfig);
-                elementModel.Id = typeof(TElementModel) + "-" + i;
-                Debug.Log(elementModel.Id);
+                elementModel.Id = elementModel + "-" + i;
                 Elements.Add(elementModel);
             }
         }

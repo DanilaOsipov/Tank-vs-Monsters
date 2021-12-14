@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using Common;
+﻿using Common;
 using Level.Model;
 using Level.Other;
-using UI;
 
 namespace Level.Command
 {
@@ -29,7 +27,6 @@ namespace Level.Command
                 defence = defencableModel.DefenceModel.Defence;
             }
             healableModel.HealthModel.Health -= (int)(_damage * defence);
-
             // if (_entityType != EntityType.Player)
             // {
             //     var objectPoolModel = _levelModel.ObjectPoolModels

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Common;
 using Level.Model;
-using Level.Other;
 using UnityEngine;
 
 namespace Level.View

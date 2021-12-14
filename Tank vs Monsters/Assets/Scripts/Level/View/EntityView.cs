@@ -19,6 +19,7 @@ namespace Level.View
         {
             Id = data.Id;
             data.OnIsActiveChanged += delegate(bool b) { gameObject.SetActive(b); };
+            gameObject.SetActive(data.IsActive);
         }
         
         private void OnCollisionEnter2D(Collision2D other)

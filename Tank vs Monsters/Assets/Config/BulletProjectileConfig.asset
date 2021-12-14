@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: BulletProjectileConfig
   _movementSpeed: 10
-  _viewPath: 
+  _viewPath: BulletProjectileView
   _type: 0
   _damageEntity:
     _damage: 10

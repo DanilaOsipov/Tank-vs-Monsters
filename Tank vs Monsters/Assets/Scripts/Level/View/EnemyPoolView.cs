@@ -12,13 +12,5 @@ namespace Level.View
         [SerializeField] private EnemyType _enemyType;
 
         public EnemyType EnemyType => _enemyType;
-        
-        public event Action<EnemyType, string, Collision2D> OnEnemyCollisionEnter 
-            = delegate(EnemyType type, string id, Collision2D collision) { };
-        
-        protected override void OnElementCollisionEnterHandler(string id, Collision2D collision)
-        {
-            OnEnemyCollisionEnter(_enemyType, id, collision);
-        }
     }
 }

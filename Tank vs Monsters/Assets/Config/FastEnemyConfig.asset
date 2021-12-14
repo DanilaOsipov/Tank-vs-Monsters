@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: FastEnemyConfig
   m_EditorClassIdentifier: 
   _id: FastEnemyConfig
-  _movementSpeed: 10
-  _viewPath: 
+  _movementSpeed: 2.5
+  _viewPath: FastEnemyView
+  _type: 0
   _healthEntity:
-    _health: 0
+    _health: 100
   _defenceEntity:
-    _defence: 0
+    _defence: 0.75
   _damageEntity:
-    _damage: 0
+    _damage: 10

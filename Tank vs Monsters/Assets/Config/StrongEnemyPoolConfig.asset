@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: StrongEnemyPoolConfig
   m_EditorClassIdentifier: 
   _id: StrongEnemyPoolConfig
-  _size: 20
+  _size: 1
   _elementConfig: {fileID: 11400000, guid: dfdf2aa2a87e22346a39085c251ff797, type: 2}
   _enemyType: 1

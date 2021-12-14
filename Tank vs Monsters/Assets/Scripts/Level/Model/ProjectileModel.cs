@@ -1,5 +1,4 @@
-﻿using Common;
-using Level.Config;
+﻿using Level.Config;
 using Level.Other;
 
 namespace Level.Model
@@ -12,5 +11,7 @@ namespace Level.Model
         {
             DamageModel = new ProjectileDamageModel(config.DamageEntity);
         }
+        
+        public override string ToString() => $"{Config.Type}Projectile";
     }
 }

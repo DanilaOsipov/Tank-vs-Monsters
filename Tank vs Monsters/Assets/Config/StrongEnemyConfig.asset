@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: StrongEnemyConfig
   m_EditorClassIdentifier: 
   _id: StrongEnemyConfig
-  _movementSpeed: 10
-  _viewPath: 
+  _movementSpeed: 1
+  _viewPath: StrongEnemyView
+  _type: 1
   _healthEntity:
-    _health: 0
+    _health: 100
   _defenceEntity:
-    _defence: 0
+    _defence: 0.25
   _damageEntity:
-    _damage: 0
+    _damage: 20

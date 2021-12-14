@@ -85,11 +85,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1301232539228666571}
-  - component: {fileID: 6374870807077148183}
   - component: {fileID: 3410280710404617798}
   - component: {fileID: 6082888352743220534}
+  - component: {fileID: 8887830088564156672}
   m_Layer: 5
-  m_Name: BigAsteroidPoolElementView
+  m_Name: FastEnemyView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,18 +116,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 159, y: 144}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6374870807077148183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8872276217779365284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff07151d7dac4aef9b48e24b07364980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &3410280710404617798
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -165,3 +153,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &8887830088564156672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8872276217779365284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b7d07a12d78488b8ad68b54c5db1ba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Level.Command;
@@ -28,7 +29,8 @@ namespace Level.View
             _controls.Main.NextWeapon.performed += OnPlayerEquipNextWeaponHandler;
             _levelModel = new LevelModel(_levelConfig) {BoxCollider2D = GetComponent<BoxCollider2D>()};
             InitializePlayer();
-            InitializeObjectPools();
+            InitializeProjectilePools();
+            InitializeEnemyPools();
             InitializeEnemySpawners();
             UIPanelsContainerView.Instance.ShowPanel(UIPanelType.PlayerInfoPanel);
             UIPanelsContainerView.Instance.ShowPanel(UIPanelType.ControlsTipsPanel);
@@ -89,29 +91,55 @@ namespace Level.View
                     var spawnEnemyCommand = new SpawnEnemyCommand(type, _levelModel);
                     spawnEnemyCommand.Execute();
                 };
+                spawnerView.Initialize(spawnerModel);
                 spawnerView.StartSpawnCoroutine();
             }
         }
 
-        private void InitializeObjectPools()
+        private void InitializeProjectilePools()
         {
-            foreach (var poolView in _enemyPoolViews)
+            foreach (var projectilePoolModel in _levelModel.ProjectilePoolModels)
             {
-                var objectPoolModel = _levelModel.EnemyPoolModels
-                    .FirstOrDefault(x => x.Config.EnemyType == poolView.EnemyType);
-                poolView.Initialize(objectPoolModel);
-                foreach (var elementModel in objectPoolModel.Elements)
-                {
-                    elementModel.Transform = poolView.Elements
-                        .FirstOrDefault(x => x.Id == elementModel.Id)?.transform;
-                }
-                poolView.OnEnemyCollisionEnter += (type, id, collision) =>
-                {
-                    var checkEntityCollisionCommand
-                        = new CheckEntityCollisionCommand(_levelModel, id, collision);
-                    checkEntityCollisionCommand.Execute();
-                };
+                var projectilePoolView = _projectilePoolViews.FirstOrDefault(x 
+                    => x.ProjectileType == projectilePoolModel.Config.ProjectileType);
+                InitializeObjectPool<ProjectilePoolView, ProjectilePoolModel, ProjectilePoolConfig, 
+                    ProjectileModel, ProjectileConfig, ProjectileView>(projectilePoolView, projectilePoolModel);
             }
+        }
+        
+        private void InitializeEnemyPools()
+        {
+            foreach (var enemyPoolModel in _levelModel.EnemyPoolModels)
+            {
+                var enemyPoolView = _enemyPoolViews
+                    .FirstOrDefault(x => x.EnemyType == enemyPoolModel.Config.EnemyType);
+                InitializeObjectPool<EnemyPoolView, EnemyPoolModel, EnemyPoolConfig, EnemyModel,
+                    EnemyConfig, EnemyView>(enemyPoolView, enemyPoolModel);
+            }
+        }
+
+        private void InitializeObjectPool<TPoolView, TPoolModel, TConfig, TElementModel,
+            TElementConfig, TElementView>(TPoolView poolView, TPoolModel poolModel)
+            where TPoolView : ObjectPoolView<TPoolModel, TConfig, TElementModel, TElementConfig, TElementView>
+            where TPoolModel : ObjectPoolModel<TConfig, TElementModel, TElementConfig>
+            where TElementView : EntityView<TElementModel, TElementConfig>
+            where TElementModel : EntityModel<TElementConfig>
+            where TElementConfig : EntityConfig
+            where TConfig : ObjectPoolConfig<TElementConfig>
+        
+        {
+            poolView.Initialize(poolModel);
+            foreach (var elementModel in poolModel.Elements)
+            {
+                elementModel.Transform = poolView.Elements
+                    .FirstOrDefault(x => x.Id == elementModel.Id)?.transform;
+            }
+            poolView.OnElementCollisionEnter += (id, collision) =>
+            {
+                var checkEntityCollisionCommand
+                    = new CheckEntityCollisionCommand(_levelModel, id, collision);
+                checkEntityCollisionCommand.Execute();
+            };
         }
 
         private void Update()

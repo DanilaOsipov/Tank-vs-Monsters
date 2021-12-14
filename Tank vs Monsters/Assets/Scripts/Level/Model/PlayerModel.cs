@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Common;
 using Level.Config;
 using Level.Other;
 using UnityEngine;
@@ -9,12 +8,20 @@ namespace Level.Model
 {
     public class PlayerModel : EntityModel<PlayerConfig>, IHealableModel, IDefencableModel
     {
+        private WeaponModel _equipedWeapon;
         public Vector2 CurrentInputVector;
         public Vector2 CurrentVelocity;
-        
+
         public List<WeaponModel> WeaponModels { get; } = new List<WeaponModel>();
 
-        public WeaponModel EquipedWeapon { get; set; }
+        public WeaponModel EquipedWeapon
+        {
+            get => _equipedWeapon;
+            set
+            {
+                _equipedWeapon = value;
+            }
+        }
 
         public HealthModel HealthModel { get; }
 
@@ -29,6 +36,7 @@ namespace Level.Model
             EquipedWeapon = WeaponModels.FirstOrDefault();
             HealthModel = new PlayerHealthModel(config.HealthEntity);
             DefenceModel = new PlayerDefenceModel(config.DefenceEntity);
+            IsActive = true;
         }
     }
 }

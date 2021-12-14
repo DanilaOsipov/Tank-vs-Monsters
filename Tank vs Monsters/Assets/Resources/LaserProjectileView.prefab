@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6895435362982090752}
   - component: {fileID: 554887682907794396}
   - component: {fileID: -6347114356282041633}
-  - component: {fileID: 3148710908313704433}
   - component: {fileID: 1890731499697242702}
+  - component: {fileID: 8294503173926422528}
   m_Layer: 5
-  m_Name: LaserProjectilePoolElementView
+  m_Name: LaserProjectileView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,18 +87,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &3148710908313704433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6895435362982090753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 668376c1a4054638923fe9dbc706748f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!96 &1890731499697242702
 TrailRenderer:
   serializedVersion: 2
@@ -198,3 +186,15 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &8294503173926422528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6895435362982090753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 309e15d3babb40359b3bce9fab042f79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

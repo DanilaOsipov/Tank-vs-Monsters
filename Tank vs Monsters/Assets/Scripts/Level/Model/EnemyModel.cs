@@ -15,5 +15,7 @@ namespace Level.Model
             DefenceModel = new EnemyDefenceModel(config.DefenceEntity);
             DamageModel = new EnemyDamageModel(config.DamageEntity);
         }
+        
+        public override string ToString() => $"{Config.Type}Enemy";
     }
 }
