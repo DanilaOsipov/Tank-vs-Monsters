@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f4c0837a1748ca96b0d7fca0be163b, type: 3}
+  m_Name: LaserGunConfig
+  m_EditorClassIdentifier: 
+  _id: LaserGunConfig
+  _type: 1
+  _projectileType: 1
+  _delayAfterShot: 0.25
+  _isReloadable: 1
+  _reloadTime: 5
+  _shotsBeforeReload: 3

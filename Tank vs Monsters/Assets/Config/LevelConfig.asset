@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6732d19343234fdba58fbd3821a54fa5, type: 3}
+  m_Name: LevelConfig
+  m_EditorClassIdentifier: 
+  _id: LevelConfig
+  _playerConfig: {fileID: 11400000, guid: d7c6633d46ba7f0438a5afc2e65b5686, type: 2}
+  _enemyPoolConfigs:
+  - {fileID: 11400000, guid: f17296e50b016d843b66cf7b2f285803, type: 2}
+  - {fileID: 11400000, guid: e6abaed4d77275c4fb2dcc722f21071b, type: 2}
+  _projectilePoolConfigs:
+  - {fileID: 11400000, guid: d4dbde5a9787ce14f95ca34b9602ab67, type: 2}
+  - {fileID: 11400000, guid: 819fe0ca5de8bab4580ac91228910955, type: 2}
+  _spawnerConfigs:
+  - {fileID: 11400000, guid: c7861688a39897045a972e9783263fc9, type: 2}
+  - {fileID: 11400000, guid: 25ea5ef42ff3dff4d8c2d3c89c54ad0b, type: 2}
+  _entityRelationships:
+  - _friendlyEntities:
+    - {fileID: 11400000, guid: a7280f0348ec6c34ba8c211202174652, type: 2}
+    - {fileID: 11400000, guid: 55386eac52134cc4d8de75be0acc3977, type: 2}
+    - {fileID: 11400000, guid: d7c6633d46ba7f0438a5afc2e65b5686, type: 2}
+  - _friendlyEntities:
+    - {fileID: 11400000, guid: d0e565b6c18781945b4285bc3fe717b7, type: 2}
+    - {fileID: 11400000, guid: dfdf2aa2a87e22346a39085c251ff797, type: 2}
