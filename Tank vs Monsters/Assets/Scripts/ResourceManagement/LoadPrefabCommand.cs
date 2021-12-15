@@ -20,10 +20,6 @@ namespace ResourceManagement
         {
             var prefab = Resources.Load(_prefabPath);
             OnPrefabLoaded(prefab);
-            // var instance = Object.Instantiate(prefab);
-            // var poolElement = instance.GetComponent<IObjectPoolElementView>();
-            // poolElement.Initialize(_elementModel);
-            // _objectPool.Add(poolElement);
         }
     }
 }

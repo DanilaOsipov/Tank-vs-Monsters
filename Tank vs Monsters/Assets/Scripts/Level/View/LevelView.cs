@@ -20,7 +20,11 @@ namespace Level.View
         [SerializeField] private List<EnemySpawnerView> _enemySpawnerViews;
         private LevelModel _levelModel;
         private Controls _controls;
-        
+        private List<UpdateProjectilePoolCommand> _updateProjectilePoolCommands;
+        private List<UpdateEnemyPoolCommand> _updateEnemyPoolCommands;
+        private MovePlayerCommand _movePlayerCommand;
+        private UpdatePlayerInfoPanelCommand _updatePlayerInfoPanelCommand;
+
         private void Awake()
         {
             _controls = new Controls();
@@ -32,8 +36,8 @@ namespace Level.View
             InitializeProjectilePools();
             InitializeEnemyPools();
             InitializeEnemySpawners();
-            UIPanelsContainerView.Instance.ShowPanel(UIPanelType.PlayerInfoPanel);
-            UIPanelsContainerView.Instance.ShowPanel(UIPanelType.ControlsTipsPanel);
+            UIPanelsContainerView.ShowPanel(UIPanelType.PlayerInfoPanel);
+            UIPanelsContainerView.ShowPanel(UIPanelType.ControlsTipsPanel);
         }
 
         private void OnDestroy()
@@ -76,6 +80,13 @@ namespace Level.View
                     = new CheckEntityCollisionCommand(_levelModel, id, collision);
                 checkEntityCollisionCommand.Execute(); 
             };
+            _levelModel.PlayerModel.HealthModel.OnHealthChanged += delegate(int health)
+            {
+                var checkPlayerHealthCommand = new CheckPlayerHealthCommand(_levelModel);
+                checkPlayerHealthCommand.Execute();
+            };
+            _movePlayerCommand = new MovePlayerCommand(_levelModel.PlayerModel);
+            _updatePlayerInfoPanelCommand = new UpdatePlayerInfoPanelCommand(_levelModel.PlayerModel);
         }
 
         private void InitializeEnemySpawners()
@@ -105,6 +116,12 @@ namespace Level.View
                 InitializeObjectPool<ProjectilePoolView, ProjectilePoolModel, ProjectilePoolConfig, 
                     ProjectileModel, ProjectileConfig, ProjectileView>(projectilePoolView, projectilePoolModel);
             }
+            _updateProjectilePoolCommands = new List<UpdateProjectilePoolCommand>();
+            foreach (var updateProjectilePoolCommand in _levelModel.ProjectilePoolModels
+                .Select(projectilePoolModel => new UpdateProjectilePoolCommand(projectilePoolModel)))
+            {
+                _updateProjectilePoolCommands.Add(updateProjectilePoolCommand);
+            }
         }
         
         private void InitializeEnemyPools()
@@ -115,6 +132,21 @@ namespace Level.View
                     .FirstOrDefault(x => x.EnemyType == enemyPoolModel.Config.EnemyType);
                 InitializeObjectPool<EnemyPoolView, EnemyPoolModel, EnemyPoolConfig, EnemyModel,
                     EnemyConfig, EnemyView>(enemyPoolView, enemyPoolModel);
+                foreach (var enemyModel in enemyPoolModel.Elements)
+                {
+                    enemyModel.HealthModel.OnHealthChanged += delegate(int health)
+                    {
+                        var checkEnemyHealthCommand
+                            = new CheckEnemyHealthCommand(enemyModel.Config.Type, enemyModel.Id, _levelModel);
+                        checkEnemyHealthCommand.Execute();
+                    };
+                }
+            }
+            _updateEnemyPoolCommands = new List<UpdateEnemyPoolCommand>();
+            foreach (var updateEnemyPoolCommand in _levelModel.EnemyPoolModels
+                .Select(enemyPoolModel => new UpdateEnemyPoolCommand(enemyPoolModel, _levelModel)))
+            {
+                _updateEnemyPoolCommands.Add(updateEnemyPoolCommand);
             }
         }
 
@@ -152,20 +184,16 @@ namespace Level.View
 
         private void UpdatePlayerInfo()
         {
-            var updatePlayerInfoPanelCommand
-                = new UpdatePlayerInfoPanelCommand(_levelModel.PlayerModel);
-            updatePlayerInfoPanelCommand.Execute();
+            _updatePlayerInfoPanelCommand.Execute();
         }
 
         private void UpdateObjectPools()
         {
-            foreach (var updateBulletPoolCommand in _levelModel.EnemyPoolModels
-                .Select(objectPoolModel => new UpdateEnemyPoolCommand(objectPoolModel, _levelModel)))
+            foreach (var updateEnemyPoolCommand in _updateEnemyPoolCommands)
             {
-                updateBulletPoolCommand.Execute();
+                updateEnemyPoolCommand.Execute();
             }
-            foreach (var updateProjectilePoolCommand in _levelModel.ProjectilePoolModels
-                .Select(projectilePoolModel => new UpdateProjectilePoolCommand(projectilePoolModel)))
+            foreach (var updateProjectilePoolCommand in _updateProjectilePoolCommands)
             {
                 updateProjectilePoolCommand.Execute();
             }
@@ -173,10 +201,9 @@ namespace Level.View
         
         private void HandleInput()
         {
-            var playerModel = _levelModel.PlayerModel;
             var moveVector = _controls.Main.Move.ReadValue<Vector2>();
-            var movePlayerCommand = new MovePlayerCommand(playerModel, moveVector);
-            movePlayerCommand.Execute();
+            _movePlayerCommand.MoveVector = moveVector;
+            _movePlayerCommand.Execute();
         }
 
         private void OnPlayerShootHandler(InputAction.CallbackContext context)
@@ -195,10 +222,6 @@ namespace Level.View
         {
             var equipNextPlayerWeaponCommand = new EquipNextPlayerWeaponCommand(_levelModel.PlayerModel);
             equipNextPlayerWeaponCommand.Execute();
-        }
-
-        public override void UpdateView(LevelModel data)
-        {
         }
 
         public override void Initialize(LevelModel data)

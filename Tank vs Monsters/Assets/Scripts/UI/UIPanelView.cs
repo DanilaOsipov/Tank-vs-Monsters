@@ -33,5 +33,7 @@ namespace UI
         {
             gameObject.SetActive(true);
         }
+        
+        public abstract void UpdateView(UIPanelData data);
     }
 }

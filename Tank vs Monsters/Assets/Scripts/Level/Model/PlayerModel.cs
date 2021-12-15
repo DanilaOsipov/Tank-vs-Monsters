@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Common;
 using Level.Config;
 using Level.Other;
 using UnityEngine;
@@ -20,12 +22,15 @@ namespace Level.Model
             set
             {
                 _equipedWeapon = value;
+                OnEquipedWeaponChanged(_equipedWeapon.Config.Type);
             }
         }
 
         public HealthModel HealthModel { get; }
 
         public DefenceModel DefenceModel { get; } 
+        
+        public event Action<WeaponType> OnEquipedWeaponChanged = delegate(WeaponType type) { };
         
         public PlayerModel(PlayerConfig config) : base(config)
         {

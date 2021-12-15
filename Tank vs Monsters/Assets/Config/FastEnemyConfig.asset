@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FastEnemyConfig
   m_EditorClassIdentifier: 
   _id: FastEnemyConfig
-  _movementSpeed: 2.5
+  _movementSpeed: 1.75
   _viewPath: FastEnemyView
   _type: 0
   _healthEntity:

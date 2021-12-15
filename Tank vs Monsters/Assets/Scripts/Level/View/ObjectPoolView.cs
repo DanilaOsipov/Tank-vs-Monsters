@@ -56,9 +56,5 @@ namespace Level.View
             elementView.transform.localScale = transform.localScale; 
             Elements.Add(elementView);
         }
-        
-        public override void UpdateView(TModel data)
-        {
-        }
     }
 }

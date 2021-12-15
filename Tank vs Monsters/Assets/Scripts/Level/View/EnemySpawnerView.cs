@@ -23,10 +23,6 @@ namespace Level.View
         {
             _spawnDelay = data.Config.SpawnDelay;
         }
-        
-        public override void UpdateView(EnemySpawnerModel data)
-        {
-        }
 
         public void StartSpawnCoroutine()
         {

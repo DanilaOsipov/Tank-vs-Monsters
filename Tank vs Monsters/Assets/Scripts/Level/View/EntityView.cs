@@ -18,10 +18,15 @@ namespace Level.View
         public override void Initialize(TModel data)
         {
             Id = data.Id;
-            data.OnIsActiveChanged += delegate(bool b) { gameObject.SetActive(b); };
+            data.OnIsActiveChanged += OnIsActiveChangedHandler;
             gameObject.SetActive(data.IsActive);
         }
-        
+
+        protected virtual void OnIsActiveChangedHandler(bool isActive)
+        {
+            gameObject.SetActive(isActive);
+        }
+
         private void OnCollisionEnter2D(Collision2D other)
         {
             OnCollisionEnter(Id, other);

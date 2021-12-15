@@ -8,6 +8,7 @@ namespace UI
     {
         [SerializeField] private TMP_Text _playerPosition;
         [SerializeField] private TMP_Text _playerRotation;
+        [SerializeField] private TMP_Text _playerHealth;
         [SerializeField] private TMP_Text _playerVelocity;
         [SerializeField] private TMP_Text _laserShots;
         [SerializeField] private TMP_Text _laserReloadingTimeLeft;
@@ -22,6 +23,7 @@ namespace UI
         {
             _playerPosition.text = "Position: " + data.PlayerPosition.ToString("0.00");
             _playerRotation.text = "Rotation: " + data.PlayerRotation.eulerAngles.z.ToString("0.00");
+            _playerHealth.text = "Health: " + data.PlayerHealth;
             _playerVelocity.text = "Velocity: " + data.PlayerVelocity.magnitude.ToString("0.00");
             if (data.LaserReloadingTimeLeft == null)
             {
@@ -42,17 +44,19 @@ namespace UI
     {
         public Vector2 PlayerPosition { get; }
         public Quaternion PlayerRotation { get; }
+        public int PlayerHealth { get; }
         public Vector2 PlayerVelocity { get; }
         public int CurrentLaserShots { get; }
         public int LaserShotsBeforeReload { get; }
         public float? LaserReloadingTimeLeft { get; }
 
         public PlayerInfoPanelData(Vector2 playerPosition, Quaternion playerRotation,
-            Vector2 playerVelocity, int currentLaserShots, int laserShotsBeforeReload,
-            float? laserReloadingTimeLeft)
+            int playerHealth, Vector2 playerVelocity, int currentLaserShots,
+            int laserShotsBeforeReload, float? laserReloadingTimeLeft)
         {
             PlayerPosition = playerPosition;
             PlayerRotation = playerRotation;
+            PlayerHealth = playerHealth;
             PlayerVelocity = playerVelocity;
             CurrentLaserShots = currentLaserShots;
             LaserShotsBeforeReload = laserShotsBeforeReload;

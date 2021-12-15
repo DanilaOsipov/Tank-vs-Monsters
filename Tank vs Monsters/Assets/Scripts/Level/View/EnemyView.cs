@@ -5,8 +5,5 @@ namespace Level.View
 {
     public class EnemyView : EntityView<EnemyModel, EnemyConfig>
     {
-        public override void UpdateView(EnemyModel data)
-        {
-        }
     }
 }

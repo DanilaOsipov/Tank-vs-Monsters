@@ -16,15 +16,15 @@ namespace ResourceManagement
         
         public virtual async void Execute()
         {
-            UIPanelsContainerView.Instance.ShowPanel(UIPanelType.LoadingPanel);
+            UIPanelsContainerView.ShowPanel(UIPanelType.LoadingPanel);
             var asyncOperation = GetAsyncOperation(_sceneName);
             while (!asyncOperation.isDone)
             {
                 var loadingPanelData = new LoadingPanelData(asyncOperation.progress);
-                UIPanelsContainerView.Instance.UpdatePanel(UIPanelType.LoadingPanel, loadingPanelData);   
+                UIPanelsContainerView.UpdatePanel(UIPanelType.LoadingPanel, loadingPanelData);   
                 await Task.Yield();
             }
-            UIPanelsContainerView.Instance.HidePanel(UIPanelType.LoadingPanel);
+            UIPanelsContainerView.HidePanel(UIPanelType.LoadingPanel);
         }
         
         protected abstract AsyncOperation GetAsyncOperation(string sceneName);

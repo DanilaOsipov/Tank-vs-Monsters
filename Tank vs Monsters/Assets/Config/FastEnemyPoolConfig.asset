@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FastEnemyPoolConfig
   m_EditorClassIdentifier: 
   _id: FastEnemyPoolConfig
-  _size: 0
+  _size: 5
   _elementConfig: {fileID: 11400000, guid: d0e565b6c18781945b4285bc3fe717b7, type: 2}
   _enemyType: 0

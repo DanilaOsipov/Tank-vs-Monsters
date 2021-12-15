@@ -22,11 +22,12 @@ namespace Level.Command
             var shotsBeforeReload = weaponModel.Config.ShotsBeforeReload;
             var data = new PlayerInfoPanelData(_playerModel.Transform.position,
                 _playerModel.Transform.rotation,
+                _playerModel.HealthModel.Health,
                 _playerModel.CurrentVelocity,
                 shotsBeforeReload - weaponModel.FiredShotsCount % shotsBeforeReload,
                 shotsBeforeReload,
                 weaponModel.ReloadingTimeLeft);
-            UIPanelsContainerView.Instance.UpdatePanel(UIPanelType.PlayerInfoPanel, data);
+            UIPanelsContainerView.UpdatePanel(UIPanelType.PlayerInfoPanel, data);
         }
     }
 }

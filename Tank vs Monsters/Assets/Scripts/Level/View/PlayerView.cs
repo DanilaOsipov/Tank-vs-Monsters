@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Level.Config;
 using Level.Model;
-using Level.Other;
 using UnityEngine;
 
 namespace Level.View
@@ -15,20 +13,20 @@ namespace Level.View
 
         public List<WeaponView> WeaponViews => _weaponViews;
 
-        public override void UpdateView(PlayerModel data)
-        {
-        }
-
         public override void Initialize(PlayerModel data)
         {
-            foreach (var weaponModel in data.WeaponModels)
+            data.OnEquipedWeaponChanged += EquipWeapon;
+            EquipWeapon(data.EquipedWeapon.Config.Type);
+        }
+
+        private void EquipWeapon(WeaponType weaponType)
+        {
+            foreach (var weaponView in _weaponViews)
             {
-                var weaponView = _weaponViews
-                    .FirstOrDefault(x => x.Type == weaponModel.Config.Type);
-                if (weaponView == null) continue;
-                weaponModel.OnStateChanged 
-                    += delegate(WeaponState state) { weaponView.ShowState(state); };
+                weaponView.gameObject.SetActive(false);
             }
+            var equipedWeaponView = _weaponViews.FirstOrDefault(x => x.Type == weaponType);
+            equipedWeaponView.gameObject.SetActive(true);
         }
     }
 }
